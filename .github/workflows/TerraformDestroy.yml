@@ -10,6 +10,5 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: 'us-east-1'
    steps:
-     - name: Terraform destroy
-       id: destroy
-       run: terraform destroy -auto-approved
+     - name: Terraform Destroy
+       run: terraform destroy -auto-approve
