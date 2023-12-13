@@ -1,35 +1,15 @@
-
 name: Terraform Destroy
 on:
-  workflow_dispatch:
+ workflow_dispatch:
 
 jobs:
-  tf-destroy:
-    runs-on: ubuntu-latest
-    env:
+ tf-destroy:
+   runs-on: ubuntu-latest
+   env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: 'us-east-1'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v1
-        
-      - name: Terraform init
-        run: terraform init
-
-      - name: Show Terraform Plan (Optional)
-        run: terraform plan
-
-      - name: Confirm Destruction
-        run: |
-          read -p "Do you really want to destroy all resources? (y/n): " confirm
-          if [ "$confirm" != "y" ]; then
-            echo "Aborted destruction."
-            exit 1
-          fi
-
-      - name: Terraform destroy
-        run: terraform destroy -auto-approve
+   steps:
+     - name: Terraform destroy
+       id: destroy
+       run: terraform destroy -auto-approved
